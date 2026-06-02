@@ -30,16 +30,17 @@ class DeliveryProvider extends ChangeNotifier {
     _error = null;
 
     try {
+      final Options options = await ApiService.authenticatedOptions();
       final Response response = await _dio.get(
         ApiConstants.deliveriesAvailable,
+        options: options,
       );
       final List<dynamic> list = ApiService.listFromResponse(response.data);
 
       final List<DeliveryModel> deliveries = list
           .map(
-            (dynamic item) => DeliveryModel.fromJson(
-              Map<String, dynamic>.from(item as Map),
-            ),
+            (dynamic item) =>
+                DeliveryModel.fromJson(Map<String, dynamic>.from(item as Map)),
           )
           .toList();
 
@@ -56,8 +57,10 @@ class DeliveryProvider extends ChangeNotifier {
     _error = null;
 
     try {
+      final Options options = await ApiService.authenticatedOptions();
       final Response response = await _dio.post(
         ApiConstants.deliveryAccept(id),
+        options: options,
       );
       final Map<String, dynamic> data = ApiService.dataFromResponse(
         response.data,
@@ -78,9 +81,11 @@ class DeliveryProvider extends ChangeNotifier {
     _error = null;
 
     try {
+      final Options options = await ApiService.authenticatedOptions();
       final Response response = await _dio.patch(
         ApiConstants.deliveryStatus(id),
         data: <String, dynamic>{'status': status},
+        options: options,
       );
 
       final Map<String, dynamic> data = ApiService.dataFromResponse(
@@ -108,12 +113,14 @@ class DeliveryProvider extends ChangeNotifier {
 
   Future<void> updateLocation(int id, double lat, double lng) async {
     try {
+      final Options options = await ApiService.authenticatedOptions();
       final Response response = await _dio.patch(
         ApiConstants.deliveryLocation(id),
         data: <String, dynamic>{
           'driver_latitude': lat,
           'driver_longitude': lng,
         },
+        options: options,
       );
 
       final Map<String, dynamic> data = ApiService.dataFromResponse(
@@ -139,7 +146,11 @@ class DeliveryProvider extends ChangeNotifier {
     _error = null;
 
     try {
-      final Response response = await _dio.get(ApiConstants.deliveriesMy);
+      final Options options = await ApiService.authenticatedOptions();
+      final Response response = await _dio.get(
+        ApiConstants.deliveriesMy,
+        options: options,
+      );
       final List<dynamic> list = ApiService.listFromResponse(response.data);
 
       final List<DeliveryModel> deliveries = await Future.wait(
@@ -173,7 +184,11 @@ class DeliveryProvider extends ChangeNotifier {
 
   Future<void> refreshActiveDelivery() async {
     try {
-      final Response response = await _dio.get(ApiConstants.deliveriesMy);
+      final Options options = await ApiService.authenticatedOptions();
+      final Response response = await _dio.get(
+        ApiConstants.deliveriesMy,
+        options: options,
+      );
       final List<dynamic> list = ApiService.listFromResponse(response.data);
 
       final List<DeliveryModel> deliveries = await Future.wait(
@@ -209,8 +224,10 @@ class DeliveryProvider extends ChangeNotifier {
     }
 
     try {
+      final Options options = await ApiService.authenticatedOptions();
       final Response response = await _dio.get(
         ApiConstants.orderDetail(delivery.orderId),
+        options: options,
       );
       final Map<String, dynamic> data = ApiService.dataFromResponse(
         response.data,

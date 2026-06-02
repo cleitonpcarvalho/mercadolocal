@@ -77,6 +77,24 @@ class ApiService {
     _accessTokenCache = token;
   }
 
+  static Future<Options> authenticatedOptions() async {
+    String? token = _accessTokenCache;
+    if (token == null || token.isEmpty) {
+      token = await StorageService.readAccessToken();
+      if (token != null && token.isNotEmpty) {
+        _accessTokenCache = token;
+      }
+    }
+
+    if (token == null || token.isEmpty) {
+      throw ApiException('Sua sessão expirou. Faça login novamente.');
+    }
+
+    return Options(
+      headers: <String, dynamic>{'Authorization': 'Bearer $token'},
+    );
+  }
+
   String _extractErrorMessage(DioException error) {
     final dynamic responseData = error.response?.data;
 
