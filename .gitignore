@@ -1,0 +1,79 @@
+# -----------------------------
+# Environment files
+# -----------------------------
+.env
+.env.*
+!.env.example
+
+# -----------------------------
+# Python / Django
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+.venv/
+venv/
+env/
+backend/staticfiles/
+backend/media/
+backend/db.sqlite3
+
+# -----------------------------
+# Node / React / Vite
+# -----------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+frontend/dist/
+frontend/.vite/
+
+# -----------------------------
+# Flutter / Dart
+# -----------------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+**/build/
+**/.dart_tool/
+**/.idea/
+**/.metadata
+
+# iOS/macOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/macos/Pods/
+
+# Android
+**/android/.gradle/
+**/android/local.properties
+
+# -----------------------------
+# Docker
+# -----------------------------
+*.pid
+*.seed
+*.pid.lock
+
+# -----------------------------
+# OS / Editor
+# -----------------------------
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
